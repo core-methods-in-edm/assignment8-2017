@@ -1,0 +1,66 @@
+---
+title: "Group Project"
+author: "Abbey Keener, Blake Rumuly, Mel Nethercott, Nirmaliz Colon-Acosta, Yuwen Zhang"
+date: "12/12/2017"
+output: html_document 
+---
+
+```{r}
+getwd()
+Master <- read.csv("AKpretest-gyr.csv", sep=",", header = TRUE)
+Novice <- read.csv("MNpretest-gyr.csv", sep=",", header = TRUE)
+Novice_Post <- read.csv("MNposttest-gyr.csv", sep=",", header = TRUE)
+```
+
+
+```{r}
+library(ggplot2)
+
+#pretest graphs 
+Horizontal_plot <- ggplot() + 
+geom_line(data=Master, aes(x=Master$time_tick, y=Master$gyr_Y_value, color='green')) + 
+geom_line(data=Novice, aes(x=Novice$time_tick, y=Novice$gyr_Y_value, color='red')) +
+  xlab("time") + ylab("horizonal") + scale_color_discrete(name = "Whiskers", labels = c("Master", "Novice")) + ggtitle("Horizontal Pretest")
+plot(Horizontal_plot)
+
+Vertical_plot <- ggplot() + 
+geom_line(data=Master, aes(x=Master$time_tick, y=Master$gyr_X_value, color='green')) + 
+geom_line(data=Novice, aes(x=Novice$time_tick, y=Novice$gyr_X_value, color='red')) +
+  xlab("time") + ylab("vertical") + scale_color_discrete(name = "Whiskers", labels = c("Master", "Novice")) + ggtitle("Vertical Pretest")
+plot(Vertical_plot)
+
+Diagonal_plot <- ggplot() + geom_line(data=Master, aes(x=Master$time_tick, y=Master$gyr_Z_value, color='green')) + geom_line(data=Novice, aes(x=Novice$time_tick, y=Novice$gyr_Z_value, color='red')) + xlab("time") + ylab("diagonal") + scale_color_discrete(name = "Whiskers", labels = c("Master", "Novice")) + ggtitle("Diagonal Pretest")
+plot(Diagonal_plot)
+
+#post test graphs 
+Horizontal_plot_post <- ggplot() + 
+geom_line(data=Master, aes(x=Master$time_tick, y=Master$gyr_Y_value, color='orange')) + geom_line(data=Novice_Post, aes(x=Novice_Post$time_tick, y=Novice_Post$gyr_Y_value, color='green')) +
+  xlab("time") + ylab("horizonal") + scale_color_discrete(name = "Whiskers", labels = c("Master", "Novice_Post")) + ggtitle("Horizontal Post-test")
+
+Vertical_plot_post <- ggplot() + 
+geom_line(data=Master, aes(x=Master$time_tick, y=Master$gyr_X_value, color='orange')) + geom_line(data=Novice_Post, aes(x=Novice_Post$time_tick, y=Novice_Post$gyr_X_value, color='green')) +
+  xlab("time") + ylab("vertical") + scale_color_discrete(name = "Whiskers", labels = c("Master", "Novice_Post")) + ggtitle("Vertical Post-test")
+
+Diagonal_plot_post <- ggplot() + geom_line(data=Master, aes(x=Master$time_tick, y=Master$gyr_Z_value, color='orange')) + geom_line(data=Novice_Post, aes(x=Novice_Post$time_tick, y=Novice_Post$gyr_Z_value, color='green')) + xlab("time") + ylab("diagonal") + scale_color_discrete(name = "Whiskers", labels = c("Master", "Novice_Post")) + ggtitle("Diagonal Post-test")
+
+#Novice graphs 
+Horizontal_plot_novice <- ggplot() + 
+geom_line(data=Novice_Post, aes(x=Novice_Post$time_tick, y=Novice_Post$gyr_Y_value, color='blue')) + 
+geom_line(data=Novice, aes(x=Novice$time_tick, y=Novice$gyr_Y_value, color='yellow')) +
+  xlab("time") + ylab("horizonal") + scale_color_discrete(name = "Whiskers", labels = c("Novice_Post", "Novice_Pre")) + ggtitle("Novice Comparison")
+
+Vertical_plot_novice <- ggplot() + 
+geom_line(data=Novice_Post, aes(x=Novice_Post$time_tick, y=Novice_Post$gyr_X_value, color='blue')) + 
+geom_line(data=Novice, aes(x=Novice$time_tick, y=Novice$gyr_X_value, color='yellow')) +
+  xlab("time") + ylab("vertical") + scale_color_discrete(name = "Whiskers", labels = c("Novice_Post", "Novice_Pre")) + ggtitle("Novice Comparison")
+
+Diagonal_plot_novice <- ggplot() + geom_line(data=Novice_Post, aes(x=Novice_Post$time_tick, y=Novice_Post$gyr_Z_value, color='blue')) + geom_line(data=Novice, aes(x=Novice$time_tick, y=Novice$gyr_Z_value, color='yellow')) + xlab("time") + ylab("diagonal") + scale_color_discrete(name = "Whiskers", labels = c("Novice_Post", "Novice_Pre")) + ggtitle("Novice Comparison")
+```
+
+```{r}
+#Variance
+var(Master)
+var(Novice)
+var(Novice_Post)
+```
+
