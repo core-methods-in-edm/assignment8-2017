@@ -1,0 +1,180 @@
+# Plot four datasets
+library(ggplot2)
+
+N <- read.csv("/Users/cici/Downloads/EDM Final Project/数据/新 第二组 没跳-lac.csv", header = TRUE)
+p <- ggplot() + geom_line(aes(time_tick, lac_X_value), N, colour = "red") + geom_line(aes(time_tick, lac_Y_value),N, colour = "blue") + geom_line(aes(time_tick, lac_Z_value),N, colour = I("darkgreen")) + xlab("Time(sec)") + ylab("Acceleration m/s^2")
+p + scale_x_continuous(breaks=seq(0,67, by=1))
+
+
+N <- read.csv("/Users/cici/Downloads/EDM Final Project/数据/新 第二组 跳动-lac.csv", header = TRUE)
+p <- ggplot() + geom_line(aes(time_tick, lac_X_value), N, colour = "red") + geom_line(aes(time_tick, lac_Y_value),N, colour = "blue") + geom_line(aes(time_tick, lac_Z_value),N, colour = I("darkgreen")) + xlab("Time(sec)") + ylab("Acceleration m/s^2")
+p + scale_x_continuous(breaks=seq(0,77, by=1))
+
+N <- read.csv("/Users/cici/Downloads/EDM Final Project/数据/第二组 没跳动-lac.csv", header = TRUE)
+p <- ggplot() + geom_line(aes(time_tick, lac_X_value), N, colour = "red") + geom_line(aes(time_tick, lac_Y_value),N, colour = "blue") + geom_line(aes(time_tick, lac_Z_value),N, colour = I("darkgreen")) + xlab("Time(sec)") + ylab("Acceleration m/s^2")
+p + scale_x_continuous(breaks=seq(0,75, by=1))
+
+N <- read.csv("/Users/cici/Downloads/EDM Final Project/数据/第二组 跳动-lac.csv", header = TRUE)
+p <- ggplot() + geom_line(aes(time_tick, lac_X_value), N, colour = "red") + geom_line(aes(time_tick, lac_Y_value),N, colour = "blue") + geom_line(aes(time_tick, lac_Z_value),N, colour = I("darkgreen")) + xlab("Time(sec)") + ylab("Acceleration m/s^2")
+p + scale_x_continuous(breaks=seq(0,86, by=1))
+
+N <- read.csv("/Users/cici/Downloads/EDM Final Project/数据/新 提高 数据 跳动 第二组-lac.csv", header = TRUE)
+p <- ggplot() + geom_line(aes(time_tick, lac_X_value), N, colour = "red") + geom_line(aes(time_tick, lac_Y_value),N, colour = "blue") + geom_line(aes(time_tick, lac_Z_value),N, colour = I("darkgreen")) + xlab("Time(sec)") + ylab("Acceleration m/s^2")
+p + scale_x_continuous(breaks=seq(0,58, by=1))
+
+
+
+N1 <- read.csv("/Users/cici/Downloads/EDM Final Project/数据/新 第二组 没跳-lac.csv", header = TRUE)
+p <- ggplot() + geom_line(aes(time_tick, lac_X_value), N, colour = "red") + geom_line(aes(time_tick, lac_Y_value),N, colour = "blue") + geom_line(aes(time_tick, lac_Z_value),N, colour = I("darkgreen")) + xlab("Time(sec)") + ylab("Acceleration m/s^2")
+p + scale_x_continuous(breaks=seq(0,67, by=1))
+
+
+N2 <- read.csv("/Users/cici/Downloads/EDM Final Project/数据/新 第二组 跳动-lac.csv", header = TRUE)
+p <- ggplot() + geom_line(aes(time_tick, lac_X_value), N, colour = "red") + geom_line(aes(time_tick, lac_Y_value),N, colour = "blue") + geom_line(aes(time_tick, lac_Z_value),N, colour = I("darkgreen")) + xlab("Time(sec)") + ylab("Acceleration m/s^2")
+p + scale_x_continuous(breaks=seq(0,77, by=1))
+
+N3 <- read.csv("/Users/cici/Downloads/EDM Final Project/数据/第二组 没跳动-lac.csv", header = TRUE)
+p <- ggplot() + geom_line(aes(time_tick, lac_X_value), N, colour = "red") + geom_line(aes(time_tick, lac_Y_value),N, colour = "blue") + geom_line(aes(time_tick, lac_Z_value),N, colour = I("darkgreen")) + xlab("Time(sec)") + ylab("Acceleration m/s^2")
+p + scale_x_continuous(breaks=seq(0,75, by=1))
+
+N4 <- read.csv("/Users/cici/Downloads/EDM Final Project/数据/第二组 跳动-lac.csv", header = TRUE)
+p <- ggplot() + geom_line(aes(time_tick, lac_X_value), N, colour = "red") + geom_line(aes(time_tick, lac_Y_value),N, colour = "blue") + geom_line(aes(time_tick, lac_Z_value),N, colour = I("darkgreen")) + xlab("Time(sec)") + ylab("Acceleration m/s^2")
+p + scale_x_continuous(breaks=seq(0,86, by=1))
+
+N5 <- read.csv("/Users/cici/Downloads/EDM Final Project/数据/新 提高 数据 跳动 第二组-lac.csv", header = TRUE)
+p <- ggplot() + geom_line(aes(time_tick, lac_X_value), N, colour = "red") + geom_line(aes(time_tick, lac_Y_value),N, colour = "blue") + geom_line(aes(time_tick, lac_Z_value),N, colour = I("darkgreen")) + xlab("Time(sec)") + ylab("Acceleration m/s^2")
+p + scale_x_continuous(breaks=seq(0,58, by=1))
+
+
+# mean x,y,z for each dataset
+library(dplyr)
+
+
+# novice + jump
+d1 <- read.csv("/Users/cici/Downloads/EDM Final Project/original cleaned/cleaned_新 第二组 跳动-lac.csv")
+D1 = d1 %>% group_by(Shoot) %>% summarise(avg_x=mean(lac_X_value), avg_y=mean(lac_Y_value), avg_z=mean(lac_Z_value))
+D1 = D1[-1,]
+D1$hit <- ifelse(D1$Shoot %in% c(7,11,13,15), "yes", "no")
+D1$player <- "novice"
+D1$jump <- "yes"
+
+# experienced + no jump
+d2 <- read.csv("/Users/cici/Downloads/EDM Final Project/original cleaned/cleaned_第二组 没跳动-lac.csv")
+D2 = d2 %>% group_by(Shoot) %>% summarise(avg_x=mean(lac_X_value), avg_y=mean(lac_Y_value), avg_z=mean(lac_Z_value))
+D2 = D2[-1,]
+D2$hit <- ifelse(D2$Shoot %in% c(3,4,5,9,10,11,12,13,15), "yes", "no")
+D2$player <- "experienced"
+D2$jump <- "no"
+
+# novice + no jump
+d3 <- read.csv("/Users/cici/Downloads/EDM Final Project/original cleaned/cleaned_新 第二组 没跳-lac.csv")
+D3 = d3 %>% group_by(Shoot) %>% summarise(avg_x=mean(lac_X_value), avg_y=mean(lac_Y_value), avg_z=mean(lac_Z_value))
+D3 = D3[-1,]
+D3$hit <- ifelse(D3$Shoot %in% c(1,3,6), "yes", "no")
+D3$player <- "novice"
+D3$jump <- "no"
+
+
+# experienced + jump
+d4 <- read.csv("/Users/cici/Downloads/EDM Final Project/original cleaned/cleaned_第二组 跳动-lac.csv")
+D4 = d4 %>% group_by(Shoot) %>% summarise(avg_x=mean(lac_X_value), avg_y=mean(lac_Y_value), avg_z=mean(lac_Z_value))
+D4 = D4[-1,]
+D4$hit <- ifelse(D4$Shoot %in% c(2,4,6,7,9,10,12,14), "yes", "no")
+D4$player <- "experienced"
+D4$jump <- "yes"
+
+
+# combine all four datasets
+D = dplyr::bind_rows(D1, D2, D3, D4)
+D$player[D$player == "novice"] <- "0"
+D$player[D$player == "experienced"] <- "1"
+D$jump[D$jump == "no"] <- "0"
+D$jump[D$jump == "yes"] <- "1"
+
+
+
+# Classification Tree
+library(rpart)
+c.tree <- rpart(hit ~ avg_x + avg_y + avg_z + player + jump, method = "class", data = D)
+printcp(c.tree)
+
+# plot the tree
+post(c.tree, file = "classification tree.ps", title = "Hit")
+
+
+#Generate a probability value that represents the probability that a shoot is hit or not based the classification tree 
+D$pred <- predict(c.tree, type="prob")[,2]
+
+# ROC curve
+install.packages("ROCR")
+library(ROCR)
+
+# plot the curve
+pred.detail <- prediction(D$pred, D$hit)
+plot(performance(pred.detail, "tpr", "fpr"))
+abline(0, 1, lty = 2)
+
+# Calculate the area under the curve(AUC)
+unlist(slot(performance(pred.detail,"auc"), "y.values"))
+
+
+
+# Novice: Pre vs. Post (Y_value only) Viz
+N_pre <- read.csv("/Users/cici/Downloads/EDM Final Project/数据/新 第二组 跳动-lac.csv.csv", header = TRUE)[,c(1,3)]
+N_pre$test <- "pre"
+
+N_post <- read.csv("/Users/cici/Downloads/EDM Final Project/数据/新 提高 数据 跳动 第二组-lac.csv", header = TRUE)[,c(1,3)]
+N_post$test <- "post"
+
+N <- dplyr::bind_rows(N_pre, N_post)
+
+p <- ggplot(N, aes(time_tick, lac_Y_value, colour = test)) + geom_line()
+p + scale_x_continuous(breaks=seq(0,77, by=5))
+
+
+library(dplyr)
+# Novice vs. Expert Viz
+N_novice <- bind_rows(N1,N2)
+N_expert <- bind_rows(N3,N4)
+
+N_novice <- N_novice[,c(1,3)]
+N_novice$player <- "novice"
+
+N_expert <- N_expert[,c(1,3)]
+N_expert$player <- "expert"
+
+N <- dplyr::bind_rows(N_novice, N_expert)
+
+p <- ggplot(N, aes(time_tick, lac_Y_value, colour = player)) + geom_line() + xlab("Time(sec)") + ylab("Y-Acceleration(m/s^2)")
+p + scale_x_continuous(breaks=seq(0,77, by=5))
+
+
+library(dplyr)
+# Jump shot vs. Set shot Viz
+N_jump <- bind_rows(N2,N4)
+N_set <- bind_rows(N1,N3)
+
+N_jump <- N_jump[,c(1,4)]
+N_jump$jump <- "jump"
+
+N_set <- N_set[,c(1,4)]
+N_set$jump <- "set"
+
+N <- dplyr::bind_rows(N_jump, N_set)
+
+p <- ggplot(N, aes(time_tick, lac_Z_value, colour = jump)) + geom_line() + xlab("Time(sec)") + ylab("Z-Acceleration(m/s^2)")
+p + scale_x_continuous(breaks=seq(0,77, by=5))
+
+
+library(dplyr)
+# Pretest vs. Post Viz
+N_pre <- N2[,c(1,2)]
+N_pre$test <- "pre"
+
+N_post <- N5[,c(1,2)]
+N_post$test <- "post"
+
+N <- dplyr::bind_rows(N_pre, N_post)
+
+p <- ggplot(N, aes(time_tick, lac_X_value, colour = test)) + geom_line() + xlab("Time(sec)") + ylab("X-Acceleration(m/s^2)")
+p + scale_x_continuous(breaks=seq(0,77, by=5))
